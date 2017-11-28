@@ -4,8 +4,13 @@
     "start": "PORT=3010 roadhog server",
     "build": "roadhog build",
     "lint": "eslint --ext .js src test",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "precommit-msg": "echo 'Pre-commit checks ...' && exit 0"
   },
+  "pre-commit": [
+    "precommit-msg",
+    "precommit"
+  ],
   "engines": {
     "install-node": "6.11.1"
   },
