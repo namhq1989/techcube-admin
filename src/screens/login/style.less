@@ -1,0 +1,56 @@
+@import "../../assets/styles/variables.less";
+@import "../../assets/styles/mixin.less";
+
+.login-page {
+  background-color: #aab2b9;
+  min-height: 100vh;
+  padding-top: 50px;
+  height: auto;
+  text-align: center;
+  .page-container {
+    background-color: white;
+    width: 340px;
+    min-height: 220px;
+    margin: 0 auto;
+    margin-top: 50px;
+    box-shadow: 0px 11px 20px grey;
+  }
+  .logo {
+    width: 70px;
+    height: 70px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    margin-bottom: 15px;
+  }
+  .form-container {
+    position: relative;
+    // width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
+    input {
+      outline: none;
+      .input-no-outline;
+      &:focus {
+        border-color: @app-color;
+      }
+    }
+    .anticon {
+      font-size: @size-13;
+    }
+    button {
+      width: 100%;
+    }
+    .ant-input-group-addon {
+      background: none;
+      img {
+        width: 16px;
+      }
+    }
+    .ant-form-item {
+      margin-bottom: 18px;
+    }
+    .ant-form-explain {
+      text-align: left;
+    }
+  }
+}

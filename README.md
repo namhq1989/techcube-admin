@@ -1,2 +1,2 @@
-# techcube-admin
-Techcube admin page
+# web-cashier
+Web for cashier

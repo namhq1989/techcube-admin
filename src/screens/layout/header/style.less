@@ -1,0 +1,73 @@
+@import "../../../assets/styles/variables.less";
+
+.app-header {
+  background: @white;
+  padding: 0;
+  .app-logo {
+    width: 30px;
+    margin: 10px 30px 0px 30px;
+    float: left;
+  }
+  .ant-menu {
+    float: left;
+    line-height: @header-height;
+    .ant-menu-item {
+      font-size: @size-13;
+    }
+  }
+  .header-profile {
+    float: right;
+    margin-right: 16px;
+    display: block;
+    height: @header-height;
+    cursor: pointer;
+    i {
+      float: right;
+      margin-top: 13px;
+      font-size: @size-13;
+      margin-left: 7px;
+    }
+    img {
+      width: 29px;
+      height: 29px;
+      // border-radius: 50%;
+      margin-top: 19px;
+      margin-right: 8px;
+    }
+    .current-info {
+      float: right;
+      line-height: 14px;
+      padding-top: 7px;
+      margin-top: 5px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      max-width: 320px;
+      @media screen and (max-width: @break-small) {
+        max-width: 190px;
+      }
+      p {
+        font-family: iCielPanton_SemiBold; // font-weight: 700;
+        color: @black;
+        font-size: @size-14;
+        margin-bottom: 1px;
+        text-transform: uppercase;
+      }
+      span {
+        font-family: iCielPanton-LightItalic;
+        font-size: @size-12;
+      }
+    }
+  }
+  .header-icon-right {
+    margin-right: 25px;
+    font-size: 22px;
+    display: inline-block;
+    margin-top: 22px;
+    cursor: pointer;
+
+    .ant-badge-count {
+      transform: scale(0.7) translateX(-50%) translateY(20%);
+    }
+  }
+}
