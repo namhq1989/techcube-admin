@@ -9,7 +9,10 @@ import { LocaleProvider } from 'antd'
 import { LayoutView } from './screens/layout'
 import { HomeView, HomeModel } from './screens/home'
 import { ActivitiesView, ActivitiesModel } from './screens/activities'
-import { CustomersView, CustomersModel } from './screens/customers'
+import { CustomersView, CustomersModel, CustomerNewView } from './screens/customers'
+import { CustomerShowView, CustomerShowModel } from './screens/customers/show'
+import { EventsView, EventsModel, EventNewView } from './screens/events'
+import { EventShowView, EventShowModel } from './screens/events/show'
 import { LoginView, LoginModel } from './screens/login'
 
 const { ConnectedRouter } = routerRedux
@@ -37,6 +40,34 @@ function Routers({ history, app }) {
     path: '/customers',
     models: () => [CustomersModel],
     component: () => CustomersView
+  }, {
+    path: '/customers/new',
+    models: () => [CustomersModel],
+    component: () => CustomerNewView
+  }, {
+    path: '/customers/:id/edit',
+    models: () => [CustomersModel],
+    component: () => CustomerNewView
+  }, {
+    path: '/customers/:id',
+    models: () => [CustomerShowModel],
+    component: () => CustomerShowView
+  }, {
+    path: '/events',
+    models: () => [EventsModel],
+    component: () => EventsView
+  }, {
+    path: '/customers/new',
+    models: () => [EventsModel],
+    component: () => EventNewView
+  }, {
+    path: '/events/:id/edit',
+    models: () => [EventsModel],
+    component: () => EventNewView
+  }, {
+    path: '/events/:id',
+    models: () => [EventShowModel],
+    component: () => EventShowView
   }]
 
   return (

@@ -1,15 +1,13 @@
 import { routerRedux } from 'dva/router'
 import { RcNotification } from '../../components'
 import { AppConst, MessageConst } from '../../configs'
-import { load, recent, importExcel, create, update } from './service'
+import { load, recent, create, update } from './service'
 
 export default {
-  namespace: 'customers',
+  namespace: 'events',
   state: {
     data: [],
-    customer: null,
-    importFailed: [],
-    isCreateSuccess: false,
+    event: null,
     filter: {
       total: 0,
       page: 0,
@@ -31,13 +29,13 @@ export default {
       yield put({
         type: 'updateState',
         payload: {
-          customer: response.data.customer
+          event: response.data.event
         }
       })
     },
 
-    * update({ payload, customerId }, { call, put }) {
-      const data = yield call(update, customerId, payload)
+    * update({ payload, eventId }, { call, put }) {
+      const data = yield call(update, eventId, payload)
       const response = data.data
 
       // Alert if failed
@@ -45,7 +43,7 @@ export default {
         return RcNotification(response.message, AppConst.notification.error)
       }
 
-      return yield put(routerRedux.push(`/customers/${customerId}`))
+      return yield put(routerRedux.push(`/events/${eventId}`))
     },
 
     * recent({ payload }, { call, put }) {
@@ -60,38 +58,12 @@ export default {
       yield put({
         type: 'updateState',
         payload: {
-          data: response.data.customers,
-          importFailed: [],
-          isCreateSuccess: false,
+          data: response.data.events,
           filter: {
             total: response.data.total,
             limit: response.data.limitPerPage,
             ...payload
           }
-        }
-      })
-    },
-
-    * importExcel({ payload }, { call, put }) {
-      const data = yield call(importExcel, payload)
-      const response = data.data
-
-      // Alert if failed
-      if (!response.success) {
-        return RcNotification(response.message, AppConst.notification.error)
-      }
-
-      yield put({
-        type: 'updateState',
-        payload: {
-          importFailed: response.data.failed
-        }
-      })
-
-      yield put({
-        type: 'recent',
-        payload: {
-          page: 0
         }
       })
     },
@@ -105,26 +77,16 @@ export default {
         return RcNotification(response.message, AppConst.notification.error)
       }
 
-      RcNotification(MessageConst.Customer.CreateSuccess)
+      RcNotification(MessageConst.Event.CreateSuccess)
 
-      if (!payload.keepCreate) {
-        return yield put(routerRedux.push('/customers'))
-      }
-
-      yield put({
-        type: 'updateState',
-        payload: {
-          isCreateSuccess: true
-        }
-      })
+      return yield put(routerRedux.push('/events'))
     },
 
     * editUnmount(data, { put }) {
       yield put({
         type: 'updateState',
         payload: {
-          customer: null,
-          isCreateSuccess: false
+          event: null
         }
       })
     }

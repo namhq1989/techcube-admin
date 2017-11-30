@@ -5,13 +5,12 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import lodash from 'lodash'
 import { connect } from 'dva'
-import { Layout, Row, Table, Button, Col, Upload } from 'antd'
+import { Layout, Row, Table, Button, Col, Tag } from 'antd'
 import { RcSearchKeyword } from '../../components'
 import { format } from '../../utils'
-import './style.less'
 
 const colums = (context) => {
-  const { page, limit } = context.props.customers.filter
+  const { page, limit } = context.props.events.filter
   return [{
     title: '#',
     dataIndex: '',
@@ -22,43 +21,46 @@ const colums = (context) => {
     title: 'Tên',
     dataIndex: 'name',
     render: (value, row) => {
-      return <Link to={`/customers/${row._id}`}>{value}</Link>
+      return <Link to={`/events/${row._id}`}>{value}</Link>
     }
   }, {
-    title: 'Công ty',
-    dataIndex: 'company',
+    title: 'Địa điểm',
+    dataIndex: 'address',
     render: (value) => {
       return <span>{value}</span>
     }
   }, {
-    title: 'Số điện thoại',
-    dataIndex: 'phone',
+    title: 'Bắt đầu',
+    dataIndex: 'startAt',
     render: (value) => {
-      return <span>{format.phone(value)}</span>
+      return format.date(value)
     }
   }, {
-    title: 'Email',
-    dataIndex: 'email',
+    title: 'Kết thúc',
+    dataIndex: 'endAt',
     render: (value) => {
-      return <span>{value}</span>
+      return format.date(value)
     }
   }, {
     title: 'Thống kê',
     dataIndex: 'statistic',
     render: (value) => {
-      return <span>{`${value.event || 0} sự kiện - ${value.checkin} lần quét mã`}</span>
+      return <span>{`${value.checkin} lần quét mã`}</span>
     }
   }, {
-    title: 'Ngày tạo',
-    dataIndex: 'createdAt',
-    sorter: true,
+    title: '',
+    dataIndex: 'active',
     render: (value) => {
-      return format.date(value)
+      if (value) {
+        return <Tag color="green">Active</Tag>
+      } else {
+        return <Tag color="red">Inactive</Tag>
+      }
     }
   }]
 }
 
-class CustomersView extends React.Component {
+class EventsView extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func,
     loading: PropTypes.object
@@ -73,7 +75,7 @@ class CustomersView extends React.Component {
   onFilterChange = (newFilter = {}) => {
     const filter = this.mergeState(newFilter)
     const query = lodash.pick(filter, ['page', 'keyword', 'sort'])
-    this.loadRecentCustomers(query)
+    this.loadRecentEvents(query)
   }
 
   // On table page change
@@ -88,82 +90,45 @@ class CustomersView extends React.Component {
     const query = lodash.pick(filter, ['page', 'keyword', 'sort'])
     // Decrease page filter 1
     query.page -= 1
-    this.loadRecentCustomers(query)
+    this.loadRecentEvents(query)
   }
 
   mergeState = (newFilter = {}) => {
-    let { customers: { filter } } = this.props
+    let { events: { filter } } = this.props
     filter = lodash.merge(filter, newFilter)
     return filter
   }
 
-  // Load recent customers
-  loadRecentCustomers = (filter) => {
+  // Load recent events
+  loadRecentEvents = (filter) => {
     this.props.dispatch({
-      type: 'customers/recent',
+      type: 'events/recent',
       payload: { ...filter }
     })
   }
 
-  // Search customer with keyword
+  // Search events with keyword
   search = (keyword) => {
     this.onFilterChange({ keyword })
   }
 
-  // Upload excel file
-  uploadExcel = (file) => {
-    this.props.dispatch({
-      type: 'customers/importExcel',
-      payload: {
-        file
-      }
-    })
-  }
-
   render() {
-    const { customers: { data, filter, importFailed }, loading } = this.props
+    const { events: { data, filter }, loading } = this.props
 
     return (
       <Layout className="container">
         <Layout className="page-content page-customers">
           <Row gutter={16}>
             <RcSearchKeyword
-              placeholder="Tên/SĐT/Email/Công ty"
+              placeholder="Tên"
               onSearch={this.search}
             />
             <Col xs={24} sm={24} md={8} lg={8} xl={8} className="group-buttons">
-              <Link to={'/customers/new'}>
+              <Link to={'/events/new'}>
                 <Button type="primary" icon="plus-circle-o">Tạo mới</Button>
               </Link>
-              <Upload
-                name="file"
-                accept=".xlsx"
-                beforeUpload={(file) => {
-                  this.uploadExcel(file)
-                  return false
-                }}
-                showUploadList={false}
-              >
-                <Button icon="upload">
-                  Import Excel
-                </Button>
-              </Upload>
             </Col>
           </Row>
-          {
-            !importFailed.length ? null
-            :
-            <Row>
-              <div className="section-title">
-                <h4>Import trùng email:</h4>
-              </div>
-              {
-                importFailed.map((email, index) => {
-                  return <span className="duplicate-email" key={index}>{email}</span>
-                })
-              }
-            </Row>
-          }
           <Row>
             <div className="section-title">
               <h4>Danh sách ({format.number(filter.total)})</h4>
@@ -176,7 +141,7 @@ class CustomersView extends React.Component {
               rowKey="_id"
               pagination={{ pageSize: filter.limit, total: filter.total, current: filter.page + 1 }}
               onChange={this.onTablePageChange}
-              loading={loading.effects['customers/recent']}
+              loading={loading.effects['events/recent']}
             />
           </Row>
         </Layout>
@@ -185,4 +150,4 @@ class CustomersView extends React.Component {
   }
 }
 
-export default connect(({ customers, loading }) => ({ customers, loading }))(CustomersView)
+export default connect(({ events, loading }) => ({ events, loading }))(EventsView)

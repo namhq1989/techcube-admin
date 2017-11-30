@@ -11,6 +11,20 @@ export default {
   Common: {
     InvalidForm: 'Vui lòng điền chính xác các thông tin!',
     EmailRequired: 'Vui lòng nhập email',
-    InvalidEmail: 'Email không đúng định dạng'
+    InvalidEmail: 'Email không đúng định dạng',
+    InvalidPhone: 'Số điện thoại không đúng định dạng'
+  },
+
+  // Customer
+  Customer: {
+    NameRequired: 'Tên khách hàng phải có ít nhất 2 ký tự',
+    CreateSuccess: 'Tạo khách hàng thành công',
+    ResendSuccess: 'Gửi Email tới khách hàng thành công'
+  },
+
+  // Event
+  Event: {
+    NameRequired: 'Tên sự kiện phải có ít nhất 2 ký tự',
+    CreateSuccess: 'Tạo sự kiện thành công'
   }
 }

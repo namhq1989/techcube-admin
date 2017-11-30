@@ -5,14 +5,14 @@ import { recent } from './service'
 export default {
   namespace: 'activities',
   state: {
-    isLoaded: false,
     data: [],
     filter: {
       total: 0,
       page: 0,
       limit: 20,
       start: AppConst.components.rangePicker.start,
-      end: AppConst.components.rangePicker.end
+      end: AppConst.components.rangePicker.end,
+      sort: '-date'
     }
   },
 
@@ -34,8 +34,7 @@ export default {
             total: response.data.total,
             limit: response.data.limitPerPage,
             ...payload
-          },
-          isLoaded: true
+          }
         }
       })
     }

@@ -55,13 +55,6 @@ class ActivitiesView extends React.Component {
   }
 
   componentDidMount() {
-    const { activities: { isLoaded } } = this.props
-
-    // Return if already loaded
-    if (isLoaded) {
-      return
-    }
-
     // Load data
     this.onFilterChange()
   }

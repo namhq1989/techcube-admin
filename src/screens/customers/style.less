@@ -1,0 +1,26 @@
+@import "../../assets/styles/variables.less";
+
+.page-customers {
+  .group-buttons {
+    margin-top: 62px;
+    @media screen and (max-width: @break-medium) {
+      margin-top: 20px;
+    }
+    button {
+      &:first-child {
+        margin-left: 0px;
+      }
+      margin-left: 10px;
+    }  
+  }
+  .duplicate-email {
+    background: @app-color;
+    padding: 5px 10px;
+    font-size: @size-12;
+    border-radius: 8px;
+    color: white;
+    margin-right: 5px;
+    display: inline-block;
+    margin-top: 5px;
+  }
+}
