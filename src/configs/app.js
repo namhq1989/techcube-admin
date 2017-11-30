@@ -1,9 +1,9 @@
 import moment from 'moment'
 
-const LocalStoragePrefix = (process.env.NODE_ENV === 'production') ? 'tech-' : 'tech-dev-'
+const LocalStoragePrefix = (process.env.NODE_ENV === 'production') ? 'imed-' : 'imed-dev-'
 
 export default {
-  name: 'Administrator',
+  name: 'IMED',
 
   endpoint: 'http://127.0.0.1:3000',
   // endpoint: 'https://dev-api.zody.vn',
@@ -23,7 +23,7 @@ export default {
 
   // Local storage
   localStorage: {
-    authKey: `${LocalStoragePrefix}merchant`
+    authKey: `${LocalStoragePrefix}admin`
   },
 
   // Notification level
@@ -52,37 +52,11 @@ export default {
     admin: 'admin'
   },
 
-  // Login
-  login: {
-    steps: {
-      inputPhone: 'inputPhone',
-      confirmCode: 'confirmCode',
-      selectMerchant: 'selectMerchant'
-    }
-  },
-
-  promotionCodeReplaceText: '#uudai',
-
   // Components default data
   components: {
     rangePicker: {
       start: moment().subtract(30, 'd').startOf('d').toISOString(),
       end: moment().endOf('d').toISOString()
     }
-  },
-
-  // Rule
-  rule: {
-    short: `
-      <p>- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
-      <p>- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-    `,
-    long: `
-      <p>- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
-      <p>- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
-      <p>- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
-      <p>- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
-      <p>- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
-    `
   }
 }

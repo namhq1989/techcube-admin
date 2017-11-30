@@ -1,2 +1,2 @@
-# web-cashier
-Web for cashier
+# imed
+IMED Admin

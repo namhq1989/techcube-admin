@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'dva'
 import { Link } from 'react-router-dom'
 import lodash from 'lodash'
-import { Layout, Row, Col, Button, Table, Form, Tooltip, Tag } from 'antd'
+import { Layout, Row, Col, Button, Table, Form, Tag } from 'antd'
 import { format } from '../../../utils'
 
 const FormItem = Form.Item
