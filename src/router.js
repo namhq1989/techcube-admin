@@ -57,7 +57,7 @@ function Routers({ history, app }) {
     models: () => [EventsModel],
     component: () => EventsView
   }, {
-    path: '/customers/new',
+    path: '/events/new',
     models: () => [EventsModel],
     component: () => EventNewView
   }, {
