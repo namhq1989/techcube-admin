@@ -5,8 +5,8 @@ const LocalStoragePrefix = (process.env.NODE_ENV === 'production') ? 'imed-' : '
 export default {
   name: 'IMED',
 
-  endpoint: 'http://127.0.0.1:3000',
-  // endpoint: 'https://dev-api.zody.vn',
+  // endpoint: 'http://127.0.0.1:3000',
+  endpoint: 'http://139.59.246.187:3010',
   // endpoint: 'https://api.zody.vn',
 
   // Screen size
