@@ -11,7 +11,7 @@ export default [{
   id: 'customers',
   icon: 'team'
 }, {
-  name: 'Lịch sử tích điểm',
+  name: 'Lịch sử quét mã',
   id: 'activities',
   icon: 'qrcode'
 }]
