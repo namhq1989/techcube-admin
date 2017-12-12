@@ -14,4 +14,8 @@ export default [{
   name: 'Lịch sử quét mã',
   id: 'activities',
   icon: 'qrcode'
+}, {
+  name: 'Nhân viên',
+  id: 'staffs',
+  icon: 'contacts'
 }]

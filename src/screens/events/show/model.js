@@ -1,11 +1,14 @@
+import lodash from 'lodash'
 import { RcNotification } from '../../../components'
 import { AppConst } from '../../../configs'
-import { load, checkin, changeStatus } from './service'
+import { load, checkin, changeStatus, changeAreaStatus, changePlanStatus } from './service'
 
 export default {
   namespace: 'eventShow',
   state: {
     data: null,
+    areas: [],
+    plans: [],
     checkin: [],
     active: false,
     filter: {
@@ -30,6 +33,8 @@ export default {
         type: 'updateState',
         payload: {
           data: response.data.event,
+          plans: response.data.plans,
+          areas: response.data.areas,
           active: response.data.event.active
         }
       })
@@ -72,6 +77,42 @@ export default {
           active: response.data.active
         }
       })
+    },
+
+    * changeAreaStatus({ areaId }, { call, put }) {
+      const data = yield call(changeAreaStatus, areaId)
+      const response = data.data
+
+      // Alert if failed
+      if (!response.success) {
+        return RcNotification(response.message, AppConst.notification.error)
+      }
+
+      yield put({
+        type: 'updateAreaStatus',
+        payload: {
+          areaId,
+          active: response.data.active
+        }
+      })
+    },
+
+    * changePlanStatus({ planId }, { call, put }) {
+      const data = yield call(changePlanStatus, planId)
+      const response = data.data
+
+      // Alert if failed
+      if (!response.success) {
+        return RcNotification(response.message, AppConst.notification.error)
+      }
+
+      yield put({
+        type: 'updatePlanStatus',
+        payload: {
+          planId,
+          active: response.data.active
+        }
+      })
     }
   },
 
@@ -85,6 +126,20 @@ export default {
       return {
         ...state,
         ...action.payload
+      }
+    },
+    updateAreaStatus(state, action) {
+      const index = lodash.findIndex(state.areas, area => area._id === action.payload.areaId)
+      state.areas[index].active = action.payload.active
+      return {
+        ...state
+      }
+    },
+    updatePlanStatus(state, action) {
+      const index = lodash.findIndex(state.plans, plan => plan._id === action.payload.planId)
+      state.plans[index].active = action.payload.active
+      return {
+        ...state
       }
     }
   }

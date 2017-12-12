@@ -23,3 +23,16 @@ export async function changeStatus(eventId) {
   })
 }
 
+export async function changeAreaStatus(areaId) {
+  const api = ApiConst.areas.changeStatus(areaId)
+  return request(api.url, {
+    method: api.method
+  })
+}
+
+export async function changePlanStatus(planId) {
+  const api = ApiConst.plans.changeStatus(planId)
+  return request(api.url, {
+    method: api.method
+  })
+}

@@ -1,7 +1,6 @@
 import moment from 'moment'
 import lodash from 'lodash'
 import { AppConst } from '../configs'
-import { castNumberToVNDText } from './customer-expense-text'
 
 // Format number
 function number(value) {
@@ -109,11 +108,6 @@ function substring(string, length = 120) {
   return string
 }
 
-// Bill price
-function billPrice(value) {
-  return castNumberToVNDText(value)
-}
-
 // Export
 export default {
   number,
@@ -125,6 +119,5 @@ export default {
   capitalizeFirstLetter,
   city,
   gender,
-  substring,
-  billPrice
+  substring
 }

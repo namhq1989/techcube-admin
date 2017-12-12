@@ -26,5 +26,30 @@ export default {
   Event: {
     NameRequired: 'Tên sự kiện phải có ít nhất 2 ký tự',
     CreateSuccess: 'Tạo sự kiện thành công'
+  },
+
+  // Staff
+  Staff: {
+    NameRequired: 'Tên nhân viên phải có ít nhất 3 ký tự',
+    CreateSuccess: 'Tạo nhân viên thành công',
+    // Change password
+    WrongConfirmPassword: 'Mật khẩu xác nhận không chính xác!',
+    PasswordMinLength: 'Mật khẩu phải ít nhất 6 ký tự',
+    PasswordMaxLength: 'Mật khẩu chỉ được tối đa 32 ký tự',
+    NewPasswordRequired: 'Vui lòng nhập mật khẩu',
+    ConfirmPasswordRequired: 'Vui lòng nhập mật khẩu xác nhận'
+  },
+
+  // Area
+  Area: {
+    NameRequired: 'Tên phải có ít nhất 1 ký tự',
+    NumOfCheckinRequired: 'Số lần được checkin phải lớn hơn 0',
+    CreateSuccess: 'Tạo khu vực thành công'
+  },
+
+  // Plan
+  Plan: {
+    NameRequired: 'Tên phải có ít nhất 1 ký tự',
+    CreateSuccess: 'Tạo gói dịch vụ thành công'
   }
 }

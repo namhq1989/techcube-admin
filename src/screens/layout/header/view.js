@@ -28,6 +28,7 @@ class HeaderView extends React.Component {
     const { profile, location } = this.props
 
     let pathname = location ? location.pathname.substring(1) : HOME_KEY
+    pathname = pathname.split('/')[0]
     if (!pathname) {
       pathname = HOME_KEY
     }

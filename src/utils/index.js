@@ -1,15 +1,13 @@
 import format from './format'
 import request from './request'
-import customerExpenseText from './customer-expense-text'
-import customerLevelText from './customer-level-text'
 import isMobileScreen from './is-mobile-screen'
 import helper from './helper'
+import roleText from './role-text'
 
 export {
   format,
   request,
-  customerExpenseText,
-  customerLevelText,
   isMobileScreen,
-  helper
+  helper,
+  roleText
 }

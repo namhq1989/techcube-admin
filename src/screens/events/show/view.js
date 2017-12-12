@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'dva'
 import { Link } from 'react-router-dom'
 import lodash from 'lodash'
-import { Layout, Row, Col, Button, Table, Form, Tag } from 'antd'
+import { Layout, Row, Col, Button, Table, Form, Tag, Icon } from 'antd'
 import { format } from '../../../utils'
+import './style.less'
 
 const FormItem = Form.Item
 
@@ -28,6 +29,108 @@ const colums = (context) => {
     sorter: true,
     render: (value) => {
       return format.date(value)
+    }
+  }]
+}
+
+const areaColumns = (context) => {
+  return [{
+    title: '#',
+    dataIndex: '',
+    render: (value, row, index) => {
+      return index + 1
+    }
+  }, {
+    title: 'Tên',
+    dataIndex: 'name',
+    render: (value) => {
+      return value
+    }
+  }, {
+    title: 'Bắt đầu',
+    dataIndex: 'startAt',
+    render: (value) => {
+      return format.date(value)
+    }
+  }, {
+    title: 'Kết thúc',
+    dataIndex: 'endAt',
+    render: (value) => {
+      return format.date(value)
+    }
+  }, {
+    title: 'Số lần checkin',
+    dataIndex: 'numOfCheckin',
+    render: (value) => {
+      return format.number(value)
+    }
+  }, {
+    title: 'Trạng thái',
+    dataIndex: 'active',
+    render: (value, row) => {
+      const props = {
+        onClick: () => context.changeAreaStatus(row._id)
+      }
+
+      if (value) {
+        return <Tag color="green" {...props}>Active</Tag>
+      } else {
+        return <Tag color="red" {...props}>Inactive</Tag>
+      }
+    }
+  }, {
+    title: '',
+    dataIndex: '',
+    render: (value, row) => {
+      return <Link to={`/events/${context.props.match.params.id}/areas/${row._id}/edit`}><Icon type="edit" /></Link>
+    }
+  }]
+}
+
+const planColumns = (context) => {
+  return [{
+    title: '#',
+    dataIndex: '',
+    render: (value, row, index) => {
+      return index + 1
+    }
+  }, {
+    title: 'Tên',
+    dataIndex: 'name',
+    render: (value) => {
+      return value
+    }
+  }, {
+    title: 'Phí',
+    dataIndex: 'fee',
+    render: (value) => {
+      return format.number(value)
+    }
+  }, {
+    title: 'Số khu vực',
+    dataIndex: 'areas',
+    render: (value) => {
+      return format.number(value.length)
+    }
+  }, {
+    title: 'Trạng thái',
+    dataIndex: 'active',
+    render: (value, row) => {
+      const props = {
+        onClick: () => context.changePlanStatus(row._id)
+      }
+
+      if (value) {
+        return <Tag color="green" {...props}>Active</Tag>
+      } else {
+        return <Tag color="red" {...props}>Inactive</Tag>
+      }
+    }
+  }, {
+    title: '',
+    dataIndex: '',
+    render: (value, row) => {
+      return <Link to={`/events/${context.props.match.params.id}/plans/${row._id}/edit`}><Icon type="edit" /></Link>
     }
   }]
 }
@@ -88,8 +191,24 @@ class EventShowView extends React.Component {
     })
   }
 
+  // Change area status
+  changeAreaStatus = (areaId) => {
+    this.props.dispatch({
+      type: 'eventShow/changeAreaStatus',
+      areaId
+    })
+  }
+
+  // Change plan status
+  changePlanStatus = (planId) => {
+    this.props.dispatch({
+      type: 'eventShow/changePlanStatus',
+      planId
+    })
+  }
+
   render() {
-    const { eventShow: { data, checkin, filter, active }, loading } = this.props
+    const { eventShow: { data, checkin, filter, active, areas, plans }, loading } = this.props
 
     const formItemLayout = {
       labelCol: {
@@ -205,6 +324,49 @@ class EventShowView extends React.Component {
                 pagination={{ pageSize: filter.limit, total: filter.total, current: filter.page + 1 }}
                 onChange={this.onTablePageChange}
                 loading={loading.effects['eventShow/checkin']}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col lg={12} md={12} sm={24} xs={24} className="padding-right-8">
+              <div className="section-title">
+                <h4>Khu vực</h4>
+                <div className="group-buttons float-right">
+                  <Link to={`/events/${this.props.match.params.id}/areas/new`}>
+                    <Button type="primary" icon="plus-circle-o" size="small">Thêm</Button>
+                  </Link>
+                </div>
+              </div>
+              <Table
+                className="background-white"
+                defaultCurrent={0}
+                columns={areaColumns(this)}
+                dataSource={areas}
+                rowKey="_id"
+                loading={loading.effects['eventShow/load']}
+              />
+            </Col>
+            <Col lg={12} md={12} sm={24} xs={24} className="padding-left-8">
+              <div className="section-title">
+                <h4>Gói dịch vụ</h4>
+                <div className="group-buttons float-right">
+                  <Link to={`/events/${this.props.match.params.id}/plans/new`}>
+                    <Button type="primary" icon="plus-circle-o" size="small">Thêm</Button>
+                  </Link>
+                </div>
+              </div>
+              <Table
+                className="background-white"
+                defaultCurrent={0}
+                columns={planColumns(this)}
+                dataSource={plans}
+                expandedRowRender={(record) => {
+                  return record.areas.map((area, areaIndex) => {
+                    return <p key={areaIndex}>- {area.name}</p>
+                  })
+                }}
+                rowKey="_id"
+                loading={loading.effects['eventShow/load']}
               />
             </Col>
           </Row>

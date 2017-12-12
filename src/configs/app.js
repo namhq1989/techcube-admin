@@ -6,8 +6,8 @@ export default {
   name: 'IMED',
 
   // endpoint: 'http://127.0.0.1:3000',
-  // endpoint: 'http://139.59.246.187:3000',
-  endpoint: 'https://api.imed.com.vn',
+  endpoint: 'http://139.59.246.187:3000',
+  // endpoint: 'https://api.imed.com.vn',
 
   // Screen size
   screens: {
@@ -49,7 +49,9 @@ export default {
 
   // App user roles
   roles: {
-    admin: 'admin'
+    admin: 'admin',
+    staff: 'staff',
+    cashier: 'cashier'
   },
 
   // Components default data

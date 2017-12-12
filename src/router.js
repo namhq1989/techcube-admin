@@ -13,6 +13,9 @@ import { CustomersView, CustomersModel, CustomerNewView } from './screens/custom
 import { CustomerShowView, CustomerShowModel } from './screens/customers/show'
 import { EventsView, EventsModel, EventNewView } from './screens/events'
 import { EventShowView, EventShowModel } from './screens/events/show'
+import { StaffsView, StaffsModel, StaffNewView } from './screens/staffs'
+import { AreasView, AreasModel } from './screens/events/areas'
+import { PlansView, PlansModel } from './screens/events/plans'
 import { LoginView, LoginModel } from './screens/login'
 
 const { ConnectedRouter } = routerRedux
@@ -68,6 +71,34 @@ function Routers({ history, app }) {
     path: '/events/:id',
     models: () => [EventShowModel],
     component: () => EventShowView
+  }, {
+    path: '/staffs',
+    models: () => [StaffsModel],
+    component: () => StaffsView
+  }, {
+    path: '/staffs/new',
+    models: () => [StaffsModel],
+    component: () => StaffNewView
+  }, {
+    path: '/staffs/:id/edit',
+    models: () => [StaffsModel],
+    component: () => StaffNewView
+  }, {
+    path: '/events/:eventId/areas/new',
+    models: () => [AreasModel],
+    component: () => AreasView
+  }, {
+    path: '/events/:eventId/areas/:id/edit',
+    models: () => [AreasModel],
+    component: () => AreasView
+  }, {
+    path: '/events/:eventId/plans/new',
+    models: () => [PlansModel],
+    component: () => PlansView
+  }, {
+    path: '/events/:eventId/plans/:id/edit',
+    models: () => [PlansModel],
+    component: () => PlansView
   }]
 
   return (

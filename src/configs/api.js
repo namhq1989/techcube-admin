@@ -114,5 +114,95 @@ export default {
         method: METHODS.get
       }
     }
+  },
+  areas: {
+    listAreas: (id) => {
+      return {
+        url: `/areas/event/${id}`,
+        method: METHODS.get
+      }
+    },
+    load: (id) => {
+      return {
+        url: `/areas/${id}`,
+        method: METHODS.get
+      }
+    },
+    create: () => {
+      return {
+        url: '/areas',
+        method: METHODS.post
+      }
+    },
+    update: (id) => {
+      return {
+        url: `/areas/${id}`,
+        method: METHODS.put
+      }
+    },
+    changeStatus: (id) => {
+      return {
+        url: `/areas/${id}`,
+        method: METHODS.patch
+      }
+    }
+  },
+  plans: {
+    load: (id) => {
+      return {
+        url: `/plans/${id}`,
+        method: METHODS.get
+      }
+    },
+    create: () => {
+      return {
+        url: '/plans',
+        method: METHODS.post
+      }
+    },
+    update: (id) => {
+      return {
+        url: `/plans/${id}`,
+        method: METHODS.put
+      }
+    },
+    changeStatus: (id) => {
+      return {
+        url: `/plans/${id}`,
+        method: METHODS.patch
+      }
+    }
+  },
+  staffs: {
+    recent: () => {
+      return {
+        url: '/users',
+        method: METHODS.get
+      }
+    },
+    create: () => {
+      return {
+        url: '/users',
+        method: METHODS.post
+      }
+    },
+    update: (id) => {
+      return {
+        url: `/users/${id}`,
+        method: METHODS.put
+      }
+    },
+    changeStatus: (id) => {
+      return {
+        url: `/users/${id}`,
+        method: METHODS.patch
+      }
+    },
+    load: (id) => {
+      return {
+        url: `/users/${id}`,
+        method: METHODS.get
+      }
+    }
   }
 }
