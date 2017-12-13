@@ -39,6 +39,18 @@ const colums = (context) => {
       return <span>{value.company}</span>
     }
   }, {
+    title: 'Khu vực',
+    dataIndex: 'area',
+    render: (value) => {
+      return value.name
+    }
+  }, {
+    title: 'Người quét',
+    dataIndex: 'byStaff',
+    render: (value) => {
+      return <Link to={`/staffs/${value._id}/edit`}>{value.name}</Link>
+    }
+  }, {
     title: 'Thời gian',
     dataIndex: 'date',
     sorter: true,

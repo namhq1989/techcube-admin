@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'dva'
+import QRCode from 'qrcode'
 import { Link } from 'react-router-dom'
 import lodash from 'lodash'
 import { Layout, Row, Col, Button, Table, Form, Tooltip, Tag } from 'antd'
@@ -22,6 +23,18 @@ const colums = (context) => {
     dataIndex: 'event',
     render: (value) => {
       return <Link to={`/events/${value._id}`}>{value.name}</Link>
+    }
+  }, {
+    title: 'Khu vực',
+    dataIndex: 'area',
+    render: (value) => {
+      return value.name
+    }
+  }, {
+    title: 'Người quét',
+    dataIndex: 'byStaff',
+    render: (value) => {
+      return <Link to={`/staffs/${value._id}/edit`}>{value.name}</Link>
     }
   }, {
     title: 'Thời gian',
@@ -49,6 +62,15 @@ class CustomerShowView extends React.Component {
       }
     })
     this.loadRecentCheckin(this.props.filter)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.customerShow.data && nextProps.customerShow.data.qrCode) {
+      console.log('nextProps.customerShow.data.qrCode', nextProps.customerShow.data.qrCode)
+      setTimeout(() => {
+        QRCode.toCanvas(document.getElementById('canvas'), nextProps.customerShow.data.qrCode, () => {})
+      }, 1000)
+    }
   }
 
   // On table page change
@@ -176,6 +198,12 @@ class CustomerShowView extends React.Component {
                 >
                   <span className="ant-form-text">{format.date(data.createdAt)}</span>
                 </FormItem>
+                <FormItem
+                  label="Mã QR"
+                  {...formItemLayout}
+                >
+                  <canvas id="canvas" />
+                </FormItem>
               </Form>
             </Col>
             <Col lg={12} md={12} sm={24} xs={24} className="padding-left-8">
@@ -183,7 +211,7 @@ class CustomerShowView extends React.Component {
                 <h4>Lịch sử quét mã ({format.number(filter.total)})</h4>
               </div>
               <Table
-                className="app-table background-white"
+                className="background-white"
                 defaultCurrent={0}
                 columns={colums(this)}
                 dataSource={checkin}

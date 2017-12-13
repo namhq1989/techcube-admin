@@ -24,6 +24,18 @@ const colums = (context) => {
       return <Link to={`/customers/${value._id}`}>{value.name}</Link>
     }
   }, {
+    title: 'Khu vực',
+    dataIndex: 'area',
+    render: (value) => {
+      return value.name
+    }
+  }, {
+    title: 'Người quét',
+    dataIndex: 'byStaff',
+    render: (value) => {
+      return <Link to={`/staffs/${value._id}/edit`}>{value.name}</Link>
+    }
+  }, {
     title: 'Thời gian',
     dataIndex: 'date',
     sorter: true,
@@ -316,7 +328,7 @@ class EventShowView extends React.Component {
                 <h4>Lịch sử quét mã ({format.number(filter.total)})</h4>
               </div>
               <Table
-                className="app-table background-white"
+                className="background-white"
                 defaultCurrent={0}
                 columns={colums(this)}
                 dataSource={checkin}
