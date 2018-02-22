@@ -34,6 +34,9 @@ const colums = (context) => {
     title: 'Người quét',
     dataIndex: 'byStaff',
     render: (value) => {
+      if (!value) {
+        return ''
+      }
       return <Link to={`/staffs/${value._id}/edit`}>{value.name}</Link>
     }
   }, {
@@ -66,7 +69,6 @@ class CustomerShowView extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.customerShow.data && nextProps.customerShow.data.qrCode) {
-      console.log('nextProps.customerShow.data.qrCode', nextProps.customerShow.data.qrCode)
       setTimeout(() => {
         QRCode.toCanvas(document.getElementById('canvas'), nextProps.customerShow.data.qrCode, () => {})
       }, 1000)
