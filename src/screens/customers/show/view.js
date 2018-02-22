@@ -28,6 +28,9 @@ const colums = (context) => {
     title: 'Khu vực',
     dataIndex: 'area',
     render: (value) => {
+      if (!value) {
+        return ''
+      }
       return value.name
     }
   }, {

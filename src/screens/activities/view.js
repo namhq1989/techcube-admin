@@ -42,12 +42,18 @@ const colums = (context) => {
     title: 'Khu vực',
     dataIndex: 'area',
     render: (value) => {
+      if (!value) {
+        return ''
+      }
       return value.name
     }
   }, {
     title: 'Người quét',
     dataIndex: 'byStaff',
     render: (value) => {
+      if (!value) {
+        return ''
+      }
       return <Link to={`/staffs/${value._id}/edit`}>{value.name}</Link>
     }
   }, {
